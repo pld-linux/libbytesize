@@ -1,11 +1,11 @@
 Summary:	A library for working with sizes in bytes
 Name:		libbytesize
-Version:	1.2
-Release:	3
+Version:	1.4
+Release:	1
 License:	LGPL v2+
 Group:		Libraries
 Source0:	https://github.com/storaged-project/libbytesize/releases/download/%{version}/%{name}-%{version}.tar.gz
-# Source0-md5:	874d37f534aa9e265013434ef7ab0342
+# Source0-md5:	aa9bd5a04546873714da2adbaaa9f283
 URL:		https://github.com/storaged-project/libbytesize
 BuildRequires:	autoconf
 BuildRequires:	automake
