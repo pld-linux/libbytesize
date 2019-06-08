@@ -1,0 +1,44 @@
+Partially reverts 895baa3bdc50689736bd3bff110bca6e389829ee: [PATCH] Remove Python 2 support
+--- libbytesize-2.0/configure.ac.orig	2019-06-08 16:31:47.643606410 +0200
++++ libbytesize-2.0/configure.ac	2019-06-08 16:31:52.663579214 +0200
+@@ -52,6 +52,22 @@
+                  [LIBBYTESIZE_SOFT_FAILURE([Header file $ac_header not found.])],
+                  [])
+ 
++AC_ARG_WITH([python2],
++    AS_HELP_STRING([--with-python2], [support python2 @<:@default=check@:>@]),
++    [],
++    [with_python2=check])
++
++AC_SUBST(WITH_PYTHON2, 0)
++if test "x$with_python2" != "xno"; then
++    AC_PATH_PROG([python2], [python2], [no])
++    AS_IF([test "x$python2" == "xno"],
++    [if test "x$with_python2" = "xyes"; then
++      LIBBYTESIZE_SOFT_FAILURE([Python2 support requested, but python2 is not available])
++      fi],
++    [AC_SUBST(WITH_PYTHON2, 1)])
++fi
++AM_CONDITIONAL(WITH_PYTHON2, test "x$with_python2" != "xno" -a "x$python2" != "xno")
++
+ AC_ARG_WITH([python3],
+     AS_HELP_STRING([--with-python3], [support python3 @<:@default=check@:>@]),
+     [],
+--- libbytesize-2.0/src/python/Makefile.am.orig	2019-03-20 10:10:37.000000000 +0100
++++ libbytesize-2.0/src/python/Makefile.am	2019-06-08 16:37:02.788565790 +0200
+@@ -1,7 +1,14 @@
++if WITH_PYTHON2
++pylibdir = $(shell python -c "import distutils.sysconfig; print(distutils.sysconfig.get_python_lib(1,0,prefix='${exec_prefix}'))")
++
++pybytesizedir     = $(pylibdir)/bytesize
++dist_pybytesize_DATA = bytesize.py __init__.py
++endif
++
+ if WITH_PYTHON3
+ py3libdir = $(shell python3 -c "import distutils.sysconfig; print(distutils.sysconfig.get_python_lib(1,0,prefix='${exec_prefix}'))")
+ py3bytesizedir    = $(py3libdir)/bytesize
+-dist_py3bytesize_DATA = bytesize.py __init__.py
++nodist_py3bytesize_DATA = bytesize.py __init__.py
+ endif
+ 
+ MAINTAINERCLEANFILES = Makefile.in

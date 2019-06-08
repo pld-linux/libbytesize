@@ -6,13 +6,14 @@
 Summary:	A library for working with sizes in bytes
 Summary(pl.UTF-8):	Biblioteka do pracy z rozmiarami w bajtach
 Name:		libbytesize
-Version:	1.4
+Version:	2.0
 Release:	1
 License:	LGPL v2+
 Group:		Libraries
 #Source0Download: https://github.com/storaged-project/libbytesize/releases
 Source0:	https://github.com/storaged-project/libbytesize/releases/download/%{version}/%{name}-%{version}.tar.gz
-# Source0-md5:	aa9bd5a04546873714da2adbaaa9f283
+# Source0-md5:	d47369556cd92aad4d8bc8ba10aebbed
+Patch0:		%{name}-python2.patch
 URL:		https://github.com/storaged-project/libbytesize
 BuildRequires:	autoconf >= 2.50
 BuildRequires:	automake
@@ -21,7 +22,7 @@ BuildRequires:	gmp-devel
 BuildRequires:	gtk-doc
 BuildRequires:	libtool >= 2:2
 BuildRequires:	mpfr-devel
-BuildRequires:	pcre-devel >= 8.32
+BuildRequires:	pcre2-8-devel
 BuildRequires:	pkgconfig
 %{?with_python2:BuildRequires:	python-devel >= 2}
 %{?with_python3:BuildRequires:	python3-devel >= 1:3.2}
@@ -94,6 +95,7 @@ Ten pakiet zawiera wiązania Pythona 3 do libbytesize.
 
 %prep
 %setup -q
+%patch0 -p1
 
 %build
 %{__libtoolize}
@@ -112,12 +114,16 @@ install -d $RPM_BUILD_ROOT%{_gtkdocdir}
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
+%if %{with python2}
 %py_ocomp $RPM_BUILD_ROOT%{py_sitedir}
 %py_comp $RPM_BUILD_ROOT%{py_sitedir}
 %py_postclean
+%endif
 
+%if %{with python3}
 %py3_comp $RPM_BUILD_ROOT%{py3_sitedir}
 %py3_ocomp $RPM_BUILD_ROOT%{py3_sitedir}
+%endif
 
 %{__rm} $RPM_BUILD_ROOT%{_libdir}/*.la
 
@@ -158,7 +164,9 @@ rm -rf $RPM_BUILD_ROOT
 %if %{with python3}
 %files -n python3-bytesize
 %defattr(644,root,root,755)
+%attr(755,root,root) %{_bindir}/bscalc
 %dir %{py3_sitedir}/bytesize
 %{py3_sitedir}/bytesize/__pycache__
 %{py3_sitedir}/bytesize/*.py
+%{_mandir}/man1/bscalc.1*
 %endif
