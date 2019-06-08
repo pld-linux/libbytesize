@@ -45,6 +45,8 @@ Summary:	Header files for libbytesize library
 Summary(pl.UTF-8):	Pliki nagłówkowe biblioteki libbytesize
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
+Requires:	gmp-devel
+Requires:	mpfr-devel
 
 %description devel
 Header files for libbytesize library.
