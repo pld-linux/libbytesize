@@ -7,7 +7,7 @@ Summary:	A library for working with sizes in bytes
 Summary(pl.UTF-8):	Biblioteka do pracy z rozmiarami w bajtach
 Name:		libbytesize
 Version:	2.5
-Release:	1
+Release:	2
 License:	LGPL v2+
 Group:		Libraries
 #Source0Download: https://github.com/storaged-project/libbytesize/releases
