@@ -6,13 +6,13 @@
 Summary:	A library for working with sizes in bytes
 Summary(pl.UTF-8):	Biblioteka do pracy z rozmiarami w bajtach
 Name:		libbytesize
-Version:	2.5
-Release:	2
+Version:	2.6
+Release:	1
 License:	LGPL v2+
 Group:		Libraries
 #Source0Download: https://github.com/storaged-project/libbytesize/releases
 Source0:	https://github.com/storaged-project/libbytesize/releases/download/%{version}/%{name}-%{version}.tar.gz
-# Source0-md5:	ab94377166b97d662a2434cf79380fd0
+# Source0-md5:	2c1d253452fd6610b5857add0195698f
 Patch0:		%{name}-python2.patch
 URL:		https://github.com/storaged-project/libbytesize
 BuildRequires:	autoconf >= 2.50
