@@ -26,6 +26,7 @@ BuildRequires:	pcre2-8-devel
 BuildRequires:	pkgconfig
 %{?with_python2:BuildRequires:	python-devel >= 2}
 %{?with_python3:BuildRequires:	python3-devel >= 1:3.2}
+BuildRequires:	rpm-build >= 4.6
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -60,6 +61,7 @@ Summary:	libbytesize library API documentation
 Summary(pl.UTF-8):	Dokumentacja API biblioteki libbytesize
 Group:		Documentation
 Requires:	gtk-doc-common
+BuildArch:	noarch
 
 %description apidocs
 API documentation for libbytesize library.
