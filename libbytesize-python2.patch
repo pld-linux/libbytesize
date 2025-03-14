@@ -28,7 +28,7 @@ Partially reverts 895baa3bdc50689736bd3bff110bca6e389829ee: [PATCH] Remove Pytho
 +++ libbytesize-2.0/src/python/Makefile.am	2019-06-08 16:37:02.788565790 +0200
 @@ -1,7 +1,14 @@
 +if WITH_PYTHON2
-+pylibdir = $(shell python -c "import distutils.sysconfig; print(distutils.sysconfig.get_python_lib(1,0,prefix='${exec_prefix}'))")
++pylibdir = $(shell python2 -c "import distutils.sysconfig; print(distutils.sysconfig.get_python_lib(1,0,prefix='${exec_prefix}'))")
 +
 +pybytesizedir     = $(pylibdir)/bytesize
 +dist_pybytesize_DATA = bytesize.py __init__.py
